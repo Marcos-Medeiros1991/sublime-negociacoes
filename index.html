@@ -380,6 +380,9 @@
   #tune .tune__toggle { position: relative; width: 2.75rem; height: 1.5rem; border-radius: var(--radius-3); background: var(--color-4); }
   #tune .tune__toggle::after { content: ""; position: absolute; top: 0.1875rem; right: 0.1875rem; width: 1.125rem; height: 1.125rem; border-radius: 50%; background: var(--color-1); }
   #tune .tune__tag { padding: 0.375rem 0.75rem; border-radius: var(--radius-3); background: var(--color-2); font-size: 0.8125rem; font-weight: 600; }
+  #tune .tune__sim { display: grid; justify-items: center; gap: 1.25rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
+  #tune .tune__sim-lead { text-align: center; }
+  #sim-root { scroll-margin-top: 7rem; }
   @media (max-width: 47.99rem) {
     #tune .tune__body { grid-template-columns: 1fr; }
     #tune .tune__slider { width: 6rem; }
@@ -567,58 +570,56 @@
   #contact .contact__form { display: grid; gap: 1.25rem; padding: clamp(1.5rem, 3.5vw, 2.75rem); border-radius: var(--radius-2); background: var(--color-2); }
   #contact .contact__form .m-btn-2 { justify-self: start; }
   #contact .contact__status:empty { display: none; }
-  #setup .setup__card:nth-child(1) { grid-template-columns: minmax(0, 1.4fr) minmax(0, 4fr) minmax(0, 6.5fr); align-items: start; min-height: 0; }
-  #setup .setup__card:nth-child(1) .setup__num, #setup .setup__card:nth-child(1) .setup__copy { margin-top: 0.5rem; }
-  #setup .sim { min-height: 27rem; align-content: start; background: #fff; display: grid; gap: 1.5rem; padding: clamp(1.5rem, 3.5vw, 2.5rem); border-radius: var(--radius-2); background: var(--color-2); box-shadow: var(--shadow-1); border: 0.0625rem solid color-mix(in srgb, var(--color-4) 38%, transparent); }
-  #setup .sim__kicker { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-5); }
-  #setup .sim__kicker i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-4); box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--color-4) 25%, transparent); }
-  #setup .sim__head { display: grid; gap: 0.5rem; }
-  #setup .sim__progress { display: grid; gap: 0.625rem; }
-  #setup .sim__bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.375rem; }
-  #setup .sim__bar { height: 0.25rem; border-radius: 0.25rem; background: var(--color-3); transition: background 0.4s; }
-  #setup .sim__bar.is-done { background: var(--color-4); }
-  #setup .sim__count { color: var(--color-5); }
-  #setup .sim__panel { display: none; gap: 1rem; }
-  #setup .sim__panel.is-active { display: grid; animation: sim-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  @media (min-width: 48rem) { #setup .setup__card:nth-child(1) .setup__copy { grid-column: 2 / -1; max-width: 36rem; } }
+  #tune .sim { width: min(100%, 42rem); min-height: 27rem; align-content: start; background: #fff; display: grid; gap: 1.5rem; padding: clamp(1.5rem, 3.5vw, 2.5rem); border-radius: var(--radius-2); background: var(--color-2); box-shadow: var(--shadow-1); border: 0.0625rem solid color-mix(in srgb, var(--color-4) 38%, transparent); }
+  #tune .sim__kicker { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-5); }
+  #tune .sim__kicker i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-4); box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--color-4) 25%, transparent); }
+  #tune .sim__head { display: grid; gap: 0.5rem; }
+  #tune .sim__progress { display: grid; gap: 0.625rem; }
+  #tune .sim__bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.375rem; }
+  #tune .sim__bar { height: 0.25rem; border-radius: 0.25rem; background: var(--color-3); transition: background 0.4s; }
+  #tune .sim__bar.is-done { background: var(--color-4); }
+  #tune .sim__count { color: var(--color-5); }
+  #tune .sim__panel { display: none; gap: 1rem; }
+  #tune .sim__panel.is-active { display: grid; animation: sim-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
   @keyframes sim-in { from { opacity: 0; translate: 0 0.75rem; } }
-  #setup .sim__opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
-  #setup .sim__opt { display: grid; gap: 0.25rem; align-content: center; justify-items: start; min-height: 4rem; padding: 0.875rem 1rem; text-align: left; border: 0.0625rem solid color-mix(in srgb, var(--color-1) 14%, transparent); border-radius: 0.875rem; background: var(--color-3); color: var(--color-1); font: inherit; cursor: pointer; transition: border-color 0.25s, background 0.25s, translate 0.25s; }
-  #setup .sim__opt strong { font-family: var(--font-1); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
-  #setup .sim__opt span { font-size: 0.8125rem; color: var(--color-5); line-height: 1.35; }
-  #setup .sim__opt:hover { border-color: var(--color-4); translate: 0 -0.125rem; }
-  #setup .sim__opt.is-selected { border-color: var(--color-4); background: color-mix(in srgb, var(--color-4) 18%, var(--color-2)); box-shadow: inset 0 0 0 0.0625rem var(--color-4); }
-  #setup .sim__opts--stack { grid-template-columns: 1fr; }
-  #setup .sim__opt--danger::before, #setup .sim__opt--warn::before, #setup .sim__opt--ok::before { content: ""; width: 0.625rem; height: 0.625rem; border-radius: 50%; margin-bottom: 0.125rem; }
-  #setup .sim__opt--danger::before { background: #c0392b; }
-  #setup .sim__opt--warn::before { background: #d49a1c; }
-  #setup .sim__opt--ok::before { background: #2e9e6b; }
-  #setup .sim__range-row { display: flex; justify-content: space-between; align-items: baseline; }
-  #setup .sim__range { width: 100%; accent-color: var(--color-4); }
-  #setup .sim__result { display: grid; gap: 0.75rem; padding: 1.25rem; border-radius: var(--radius-4); background: var(--color-1); color: var(--color-2); }
-  #setup .sim__badge { justify-self: start; padding: 0.375rem 0.75rem; border-radius: var(--radius-3); background: color-mix(in srgb, var(--color-4) 22%, transparent); color: var(--color-7); }
-  #setup .sim__prices { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  #setup .sim__old { text-decoration: line-through; opacity: 0.55; }
-  #setup .sim__new { font-family: var(--font-1); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.04em; color: var(--color-4); line-height: 1; }
-  #setup .sim__arrow { color: var(--color-4); }
-  #setup .sim__total { color: var(--color-9); }
-  #setup .sim__lead { display: grid; gap: 1rem; }
-  #setup .sim__lead .m-field__input.is-error { border-color: #c0392b; }
-  #setup .sim__err { display: none; color: #c0392b; }
-  #setup .sim__nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-  #setup .sim__back { background: none; border: 0; padding: 0; cursor: pointer; color: var(--color-5); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 0.25rem; }
-  #setup .sim__back[hidden] { display: none; }
-  #setup .sim__legal { color: var(--color-5); }
-  #setup .sim__status:empty { display: none; }
-  #setup .sim__opt { background: var(--color-2); }
-  #setup .sim__opt.is-selected { background: color-mix(in srgb, var(--color-4) 18%, #fff); }
-  @media (max-width: 63.99rem) { #setup .setup__card:nth-child(1) { grid-template-columns: auto minmax(0, 1fr); } #setup .setup__sim { grid-column: 1 / -1; } }
-  @media (max-width: 47.99rem) { #setup .setup__card:nth-child(1) { grid-template-columns: 1fr; } #setup .sim { min-height: 0; } }
+  #tune .sim__opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  #tune .sim__opt { display: grid; gap: 0.25rem; align-content: center; justify-items: start; min-height: 4rem; padding: 0.875rem 1rem; text-align: left; border: 0.0625rem solid color-mix(in srgb, var(--color-1) 14%, transparent); border-radius: 0.875rem; background: var(--color-3); color: var(--color-1); font: inherit; cursor: pointer; transition: border-color 0.25s, background 0.25s, translate 0.25s; }
+  #tune .sim__opt strong { font-family: var(--font-1); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+  #tune .sim__opt span { font-size: 0.8125rem; color: var(--color-5); line-height: 1.35; }
+  #tune .sim__opt:hover { border-color: var(--color-4); translate: 0 -0.125rem; }
+  #tune .sim__opt.is-selected { border-color: var(--color-4); background: color-mix(in srgb, var(--color-4) 18%, var(--color-2)); box-shadow: inset 0 0 0 0.0625rem var(--color-4); }
+  #tune .sim__opts--stack { grid-template-columns: 1fr; }
+  #tune .sim__opt--danger::before, #tune .sim__opt--warn::before, #tune .sim__opt--ok::before { content: ""; width: 0.625rem; height: 0.625rem; border-radius: 50%; margin-bottom: 0.125rem; }
+  #tune .sim__opt--danger::before { background: #c0392b; }
+  #tune .sim__opt--warn::before { background: #d49a1c; }
+  #tune .sim__opt--ok::before { background: #2e9e6b; }
+  #tune .sim__range-row { display: flex; justify-content: space-between; align-items: baseline; }
+  #tune .sim__range { width: 100%; accent-color: var(--color-4); }
+  #tune .sim__result { display: grid; gap: 0.75rem; padding: 1.25rem; border-radius: var(--radius-4); background: var(--color-1); color: var(--color-2); }
+  #tune .sim__badge { justify-self: start; padding: 0.375rem 0.75rem; border-radius: var(--radius-3); background: color-mix(in srgb, var(--color-4) 22%, transparent); color: var(--color-7); }
+  #tune .sim__prices { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  #tune .sim__old { text-decoration: line-through; opacity: 0.55; }
+  #tune .sim__new { font-family: var(--font-1); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.04em; color: var(--color-4); line-height: 1; }
+  #tune .sim__arrow { color: var(--color-4); }
+  #tune .sim__total { color: var(--color-9); }
+  #tune .sim__lead { display: grid; gap: 1rem; }
+  #tune .sim__lead .m-field__input.is-error { border-color: #c0392b; }
+  #tune .sim__err { display: none; color: #c0392b; }
+  #tune .sim__nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  #tune .sim__back { background: none; border: 0; padding: 0; cursor: pointer; color: var(--color-5); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 0.25rem; }
+  #tune .sim__back[hidden] { display: none; }
+  #tune .sim__legal { color: var(--color-5); }
+  #tune .sim__status:empty { display: none; }
+  #tune .sim__opt { background: var(--color-2); }
+  #tune .sim__opt.is-selected { background: color-mix(in srgb, var(--color-4) 18%, #fff); }
+  @media (max-width: 47.99rem) { #tune .sim { min-height: 0; width: 100%; } }
   @media (max-width: 63.99rem) {
     #contact .contact__inner { grid-template-columns: 1fr; }
   }
   @media (max-width: 47.99rem) {
     #contact .contact__ways { grid-template-columns: 1fr; }
-    #setup .sim__opts { grid-template-columns: 1fr 1fr; }
+    #tune .sim__opts { grid-template-columns: 1fr 1fr; }
   }
 }
 </style>
@@ -669,7 +670,7 @@
       <li><a class="m-link-2" href="#faq">Perguntas</a></li>
       <li><a class="m-link-2" href="#contact">Contato</a></li>
     </ul>
-    <a class="m-btn-3 nav__cta" href="#setup"><span class="m-btn__label">Simular Redução</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></a>
+    <a class="m-btn-3 nav__cta" href="#sim-root"><span class="m-btn__label">Simular Redução</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></a>
     <button class="m-icon-btn nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
   <div class="menu" id="menu" data-lenis-prevent hidden role="dialog" aria-modal="true" aria-label="Menu Mobile">
@@ -683,7 +684,7 @@
       <li><a class="m-link-2" href="#faq">Perguntas</a></li>
       <li><a class="m-link-2" href="#contact">Contato</a></li>
     </ul>
-    <a class="m-btn" href="#setup"><span class="m-btn__label">Simular Redução</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></a>
+    <a class="m-btn" href="#sim-root"><span class="m-btn__label">Simular Redução</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></a>
   </div>
 </header>
 
@@ -718,7 +719,7 @@
           <li><svg viewBox="0 0 16 16" aria-hidden="true"><path class="hero__tick" d="M3 8.5l3 3 7-7"/></svg>Blindagem veicular contra apreensão</li>
         </ul>
         <div class="hero__actions">
-          <a class="m-btn" href="#setup"><span class="m-btn__label">Simular Redução Gratuita</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></a>
+          <a class="m-btn" href="#sim-root"><span class="m-btn__label">Simular Redução Gratuita</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></a>
           <a class="m-link m-text-6" href="#listen">Ver como funciona</a>
         </div>
       </div>
@@ -831,6 +832,74 @@
         <li class="tune__row"><h3 class="m-text-5">Atendimento em Todo o Brasil</h3><p class="m-text-8">Assessoria digital especializada para todos os estados.</p><span class="tune__ctl tune__toggle" aria-hidden="true"></span></li>
       </ul>
     </div>
+    <div class="tune__sim" id="sim-root">
+      <p class="tune__sim-lead m-text-5">Faça a sua simulação agora.</p>
+        <div class="sim" role="group" aria-labelledby="sim-title">
+          <div class="sim__head">
+            <p class="sim__kicker m-text-6"><i aria-hidden="true"></i>Consulta Gratuita com o Consultor</p>
+            <h3 class="m-text-5" id="sim-title">Descubra quanto você pode economizar em 4 passos.</h3>
+          </div>
+          <div class="sim__progress">
+            <div class="sim__bars" aria-hidden="true"><span class="sim__bar is-done"></span><span class="sim__bar"></span><span class="sim__bar"></span><span class="sim__bar"></span></div>
+            <p class="sim__count m-text-7" id="sim-count" aria-live="polite">Passo 1 de 4 · Tipo de financiamento</p>
+          </div>
+    
+          <div class="sim__panel is-active" data-sim-step="1">
+            <p class="m-field__label">O que você financiou?</p>
+            <div class="sim__opts">
+              <button type="button" class="sim__opt" data-field="tipo" data-value="Carro"><strong>Carro</strong><span>Financiamento de veículo</span></button>
+              <button type="button" class="sim__opt" data-field="tipo" data-value="Moto"><strong>Moto</strong><span>Financiamento de moto</span></button>
+              <button type="button" class="sim__opt" data-field="tipo" data-value="Imóvel"><strong>Imóvel</strong><span>Casa, apto ou terreno</span></button>
+              <button type="button" class="sim__opt" data-field="tipo" data-value="Empréstimo"><strong>Empréstimo</strong><span>Pessoal, consignado ou PJ</span></button>
+            </div>
+          </div>
+    
+          <div class="sim__panel" data-sim-step="2">
+            <p class="m-field__label">Qual é o banco credor?</p>
+            <div class="sim__opts">
+              <button type="button" class="sim__opt" data-field="banco" data-value="Santander"><strong>Santander</strong></button>
+              <button type="button" class="sim__opt" data-field="banco" data-value="Bradesco"><strong>Bradesco</strong></button>
+              <button type="button" class="sim__opt" data-field="banco" data-value="Itaú"><strong>Itaú</strong></button>
+              <button type="button" class="sim__opt" data-field="banco" data-value="Banco BV"><strong>Banco BV</strong></button>
+              <button type="button" class="sim__opt" data-field="banco" data-value="Banco do Brasil"><strong>Banco do Brasil</strong></button>
+              <button type="button" class="sim__opt" data-field="banco" data-value="Outro banco"><strong>Outro banco</strong></button>
+            </div>
+          </div>
+    
+          <div class="sim__panel" data-sim-step="3">
+            <p class="m-field__label">Como estão suas parcelas hoje?</p>
+            <div class="sim__opts sim__opts--stack">
+              <button type="button" class="sim__opt sim__opt--ok" data-field="status" data-value="Em dia, quero pagar menos" data-risk="ok"><strong>Em dia, quero pagar menos</strong><span>Reduzir a parcela antes de atrasar</span></button>
+              <button type="button" class="sim__opt sim__opt--warn" data-field="status" data-value="1 a 3 parcelas em atraso" data-risk="warn"><strong>1 a 3 parcelas em atraso</strong><span>Cobrança ativa, hora de agir</span></button>
+              <button type="button" class="sim__opt sim__opt--danger" data-field="status" data-value="4 ou mais parcelas em atraso" data-risk="danger"><strong>4 ou mais parcelas em atraso</strong><span>Risco de busca e apreensão</span></button>
+            </div>
+          </div>
+    
+          <div class="sim__panel" data-sim-step="4">
+            <div class="m-field">
+              <label class="m-field__label" for="sim-parcela">Valor da parcela atual</label>
+              <input class="m-field__input" id="sim-parcela" type="text" inputmode="numeric" value="R$ 1.500,00" autocomplete="off">
+            </div>
+            <div class="m-field">
+              <div class="sim__range-row"><label class="m-field__label" for="sim-meses">Parcelas restantes</label><span class="m-text-6" id="sim-meses-label">36 meses</span></div>
+              <input class="sim__range" id="sim-meses" type="range" min="6" max="84" step="1" value="36">
+            </div>
+            <div class="sim__result" aria-live="polite">
+              <p class="sim__badge m-text-7" id="sim-badge"></p>
+              <div class="sim__prices"><span class="sim__old m-text-5" id="sim-old"></span><span class="sim__arrow" aria-hidden="true">→</span><span class="sim__new" id="sim-new"></span></div>
+              <p class="sim__total m-text-7" id="sim-total"></p>
+            </div>
+            <div class="sim__lead">
+              <div class="m-field"><label class="m-field__label" for="sim-nome">Seu nome</label><input class="m-field__input" id="sim-nome" type="text" autocomplete="name" placeholder="Ex: Juliana Santos"><p class="sim__err m-text-7" id="sim-nome-err">Informe seu nome para continuar.</p></div>
+              <div class="m-field"><label class="m-field__label" for="sim-tel">WhatsApp com DDD</label><input class="m-field__input" id="sim-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 96084-5396"><p class="sim__err m-text-7" id="sim-tel-err">Informe um WhatsApp válido com DDD.</p></div>
+            </div>
+            <button class="m-btn" type="button" id="sim-send"><span class="m-btn__label" id="sim-send-label">Receber Parecer no WhatsApp</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></button>
+            <p class="sim__legal m-text-7">Estimativa baseada na redução média dos consultores de 50%. Sigilo garantido pela LGPD. Nenhum documento é exigido agora.</p>
+          </div>
+    
+          <div class="sim__nav"><button type="button" class="sim__back m-text-6" id="sim-back" hidden>← Voltar</button><p class="sim__status m-text-8" role="status" aria-live="polite"></p></div>
+        </div>
+    </div>
   </div>
 </section>
 
@@ -935,71 +1004,6 @@
       <li class="setup__card" style="--setup-i:0">
         <p class="setup__num m-text-2" aria-hidden="true">1</p>
         <div class="setup__copy"><h3 class="m-text-5">Simulação sem compromisso</h3><p class="m-text-8">Responda 4 perguntas rápidas e veja na hora quanto pode economizar. Sem consulta ao score, sem documentos e com sigilo garantido pela LGPD.</p></div>
-        <div class="sim setup__sim" id="sim-root" role="group" aria-labelledby="sim-title">
-          <div class="sim__head">
-            <p class="sim__kicker m-text-6"><i aria-hidden="true"></i>Consulta Gratuita com o Consultor</p>
-            <h3 class="m-text-5" id="sim-title">Descubra quanto você pode economizar em 4 passos.</h3>
-          </div>
-          <div class="sim__progress">
-            <div class="sim__bars" aria-hidden="true"><span class="sim__bar is-done"></span><span class="sim__bar"></span><span class="sim__bar"></span><span class="sim__bar"></span></div>
-            <p class="sim__count m-text-7" id="sim-count" aria-live="polite">Passo 1 de 4 · Tipo de financiamento</p>
-          </div>
-    
-          <div class="sim__panel is-active" data-sim-step="1">
-            <p class="m-field__label">O que você financiou?</p>
-            <div class="sim__opts">
-              <button type="button" class="sim__opt" data-field="tipo" data-value="Carro"><strong>Carro</strong><span>Financiamento de veículo</span></button>
-              <button type="button" class="sim__opt" data-field="tipo" data-value="Moto"><strong>Moto</strong><span>Financiamento de moto</span></button>
-              <button type="button" class="sim__opt" data-field="tipo" data-value="Imóvel"><strong>Imóvel</strong><span>Casa, apto ou terreno</span></button>
-              <button type="button" class="sim__opt" data-field="tipo" data-value="Empréstimo"><strong>Empréstimo</strong><span>Pessoal, consignado ou PJ</span></button>
-            </div>
-          </div>
-    
-          <div class="sim__panel" data-sim-step="2">
-            <p class="m-field__label">Qual é o banco credor?</p>
-            <div class="sim__opts">
-              <button type="button" class="sim__opt" data-field="banco" data-value="Santander"><strong>Santander</strong></button>
-              <button type="button" class="sim__opt" data-field="banco" data-value="Bradesco"><strong>Bradesco</strong></button>
-              <button type="button" class="sim__opt" data-field="banco" data-value="Itaú"><strong>Itaú</strong></button>
-              <button type="button" class="sim__opt" data-field="banco" data-value="Banco BV"><strong>Banco BV</strong></button>
-              <button type="button" class="sim__opt" data-field="banco" data-value="Banco do Brasil"><strong>Banco do Brasil</strong></button>
-              <button type="button" class="sim__opt" data-field="banco" data-value="Outro banco"><strong>Outro banco</strong></button>
-            </div>
-          </div>
-    
-          <div class="sim__panel" data-sim-step="3">
-            <p class="m-field__label">Como estão suas parcelas hoje?</p>
-            <div class="sim__opts sim__opts--stack">
-              <button type="button" class="sim__opt sim__opt--ok" data-field="status" data-value="Em dia, quero pagar menos" data-risk="ok"><strong>Em dia, quero pagar menos</strong><span>Reduzir a parcela antes de atrasar</span></button>
-              <button type="button" class="sim__opt sim__opt--warn" data-field="status" data-value="1 a 3 parcelas em atraso" data-risk="warn"><strong>1 a 3 parcelas em atraso</strong><span>Cobrança ativa, hora de agir</span></button>
-              <button type="button" class="sim__opt sim__opt--danger" data-field="status" data-value="4 ou mais parcelas em atraso" data-risk="danger"><strong>4 ou mais parcelas em atraso</strong><span>Risco de busca e apreensão</span></button>
-            </div>
-          </div>
-    
-          <div class="sim__panel" data-sim-step="4">
-            <div class="m-field">
-              <label class="m-field__label" for="sim-parcela">Valor da parcela atual</label>
-              <input class="m-field__input" id="sim-parcela" type="text" inputmode="numeric" value="R$ 1.500,00" autocomplete="off">
-            </div>
-            <div class="m-field">
-              <div class="sim__range-row"><label class="m-field__label" for="sim-meses">Parcelas restantes</label><span class="m-text-6" id="sim-meses-label">36 meses</span></div>
-              <input class="sim__range" id="sim-meses" type="range" min="6" max="84" step="1" value="36">
-            </div>
-            <div class="sim__result" aria-live="polite">
-              <p class="sim__badge m-text-7" id="sim-badge"></p>
-              <div class="sim__prices"><span class="sim__old m-text-5" id="sim-old"></span><span class="sim__arrow" aria-hidden="true">→</span><span class="sim__new" id="sim-new"></span></div>
-              <p class="sim__total m-text-7" id="sim-total"></p>
-            </div>
-            <div class="sim__lead">
-              <div class="m-field"><label class="m-field__label" for="sim-nome">Seu nome</label><input class="m-field__input" id="sim-nome" type="text" autocomplete="name" placeholder="Ex: Juliana Santos"><p class="sim__err m-text-7" id="sim-nome-err">Informe seu nome para continuar.</p></div>
-              <div class="m-field"><label class="m-field__label" for="sim-tel">WhatsApp com DDD</label><input class="m-field__input" id="sim-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 96084-5396"><p class="sim__err m-text-7" id="sim-tel-err">Informe um WhatsApp válido com DDD.</p></div>
-            </div>
-            <button class="m-btn" type="button" id="sim-send"><span class="m-btn__label" id="sim-send-label">Receber Parecer no WhatsApp</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></button>
-            <p class="sim__legal m-text-7">Estimativa baseada na redução média dos consultores de 50%. Sigilo garantido pela LGPD. Nenhum documento é exigido agora.</p>
-          </div>
-    
-          <div class="sim__nav"><button type="button" class="sim__back m-text-6" id="sim-back" hidden>← Voltar</button><p class="sim__status m-text-8" role="status" aria-live="polite"></p></div>
-        </div>
       </li>
       <li class="setup__card" style="--setup-i:1">
         <p class="setup__num m-text-2" aria-hidden="true">2</p>
