@@ -1220,15 +1220,46 @@
 </script>
 <script data-8b-part="section-script:contact">
 (() => {
+  const ACCESS_KEY = '7f2c6519-6a48-41cb-b038-285b0f7eb1fa';
+  window.sublimeNotify = fields => fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify(Object.assign({ access_key: ACCESS_KEY, from_name: 'Site Sublime' }, fields)),
+    keepalive: true
+  }).then(r => r.json()).catch(() => ({ success: false }));
+
   const form = document.getElementById('contact-form');
   if (!form) return;
   const status = form.querySelector('.contact__status');
   form.addEventListener('submit', event => {
     event.preventDefault();
-    const valid = form.checkValidity();
-    status.textContent = valid ? form.dataset.msgOk : form.dataset.msgError;
-    if (valid) form.reset();
-    else form.querySelector(':invalid')?.focus();
+    if (!form.checkValidity()) {
+      status.textContent = form.dataset.msgError;
+      form.querySelector(':invalid')?.focus();
+      return;
+    }
+    const name = form.querySelector('#contact-name').value.trim();
+    const contact = form.querySelector('#contact-email').value.trim();
+    const message = form.querySelector('#contact-message').value.trim();
+    const button = form.querySelector('button[type="submit"]');
+    const label = button.querySelector('.m-btn__label');
+    const previous = label.textContent;
+    label.textContent = 'Enviando...';
+    button.disabled = true;
+    const fields = { subject: 'Contato pelo site — ' + name, name, message, contato: contact };
+    if (contact.includes('@')) fields.email = contact;
+    else fields.phone = contact;
+    window.sublimeNotify(fields).then(res => {
+      if (res && res.success) {
+        status.textContent = form.dataset.msgOk;
+        form.reset();
+      } else {
+        status.textContent = 'Não consegui enviar agora. Fale no WhatsApp (11) 96084-5396.';
+      }
+    }).finally(() => {
+      label.textContent = previous;
+      button.disabled = false;
+    });
   });
 })();
 </script>
@@ -1307,8 +1338,20 @@
     const novo = Math.round(st.parcela * 0.5), total = (st.parcela - novo) * st.meses;
     const lead = { nome: n, telefone: '55' + digits, origem_campanha: 'Site_Sublime_Linea', tipo_bem: st.tipo, banco: st.banco, situacao: st.status, valor_parcela: st.parcela, valor_reduzido: novo, economia_total: total, parcelas_restantes: st.meses, ref_code: st.ref, data_cadastro: new Date().toISOString() };
     try { const all = JSON.parse(localStorage.getItem('sublime_todos_leads') || '[]'); all.push(lead); localStorage.setItem('sublime_todos_leads', JSON.stringify(all)); localStorage.setItem('sublime_ultimo_lead', JSON.stringify(lead)); } catch (e) {}
-    try { navigator.sendBeacon && navigator.sendBeacon('/webhook/transbordo', JSON.stringify(lead)); } catch (e) {}
     const msg = 'Olá! Meu nome é *' + n + '*. Fiz a simulação no site da Sublime (' + st.ref + ').\n\n📋 *Dados da Simulação:*\n• Contrato: ' + st.tipo + ' (' + st.banco + ')\n• Situação: ' + st.status + '\n• Parcela atual: ' + brl(st.parcela) + '\n• Estimativa reduzida: ' + brl(novo) + ' (50% de redução)\n• Economia estimada: até ' + brl(total) + '\n\nQuero receber o parecer técnico oficial!';
+    window.sublimeNotify && window.sublimeNotify({
+      subject: 'Nova simulação ' + st.ref + ' — ' + n,
+      name: n,
+      phone: tel.value.trim(),
+      message: msg.replace(/\*/g, ''),
+      protocolo: st.ref,
+      contrato: st.tipo,
+      banco: st.banco,
+      situacao: st.status,
+      parcela_atual: brl(st.parcela),
+      estimativa_reduzida: brl(novo),
+      economia_estimada: brl(total)
+    });
     const url = 'https://wa.me/5511960845396?text=' + encodeURIComponent(msg);
     $('sim-send-label').textContent = 'Conectando ao consultor...';
     status.textContent = 'Recebido com sucesso! Um consultor jurídico da Sublime continuará seu atendimento no WhatsApp em até 15 minutos.';
