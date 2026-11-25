@@ -399,11 +399,15 @@
   #rooms .rooms__hold { margin-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: var(--space-2); }
   #rooms .rooms__now { display: flex; align-items: center; gap: 0.5rem; width: fit-content; margin: 0 auto 1.5rem; padding: 0.4375rem 0.875rem; border-radius: var(--radius-3); background: var(--color-8); color: var(--color-9); }
   #rooms .rooms__now i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-4); }
-  #rooms .rooms__track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; max-width: 88rem; margin-inline: auto; padding-inline: var(--space-1); }
+  #rooms .rooms__track { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; max-width: 88rem; margin-inline: auto; padding-inline: var(--space-1); }
   #rooms .rooms__place { position: relative; overflow: hidden; aspect-ratio: 3 / 4.3; border-radius: var(--radius-2); background: var(--color-8); }
-  #rooms .rooms__place img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+  #rooms .rooms__video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; background: var(--color-1); }
   #rooms .rooms__place::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--color-1) 35%, transparent), transparent 26%, transparent 46%, color-mix(in srgb, var(--color-1) 78%, transparent)); pointer-events: none; }
-  #rooms .rooms__label { position: absolute; z-index: 2; top: 0.875rem; left: 0.875rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-3); background: color-mix(in srgb, var(--color-1) 78%, transparent); }
+  #rooms .rooms__label { position: absolute; z-index: 2; top: 0.875rem; left: 0.875rem; display: grid; gap: 0.125rem; max-width: calc(100% - 1.75rem); padding: 0.5rem 0.75rem; border-radius: var(--radius-3); background: color-mix(in srgb, var(--color-1) 78%, transparent); }
+  #rooms .rooms__where { color: var(--color-9); font-weight: 400; }
+  #rooms .rooms__play { position: absolute; z-index: 4; top: 46%; left: 50%; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; translate: -50% -50%; border: 0; border-radius: 50%; background: var(--color-4); color: var(--color-1); cursor: pointer; }
+  #rooms .rooms__play svg { width: 1.15rem; height: 1.15rem; margin-left: 0.15rem; fill: currentColor; }
+  #rooms .rooms__place.is-playing .rooms__play { display: none; }
   #rooms .rooms__talk { position: absolute; z-index: 3; left: 0.875rem; right: 0.875rem; bottom: 0.875rem; display: grid; gap: 0.5rem; justify-items: start; }
   #rooms .rooms__talk .m-caption-2 { justify-self: end; }
   #rooms .rooms__talk .m-caption, #rooms .rooms__talk .m-caption-2 { font-size: 0.8125rem; }
@@ -413,12 +417,11 @@
   #rooms .rooms__line--b { stroke: var(--color-2); }
   @media (max-width: 63.99rem) {
     #rooms .rooms__track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    #rooms .rooms__place:last-child { grid-column: 1 / -1; aspect-ratio: 3 / 2.2; }
   }
   @media (max-width: 47.99rem) {
     #rooms .rooms__head { grid-template-columns: 1fr; }
     #rooms .rooms__track { grid-template-columns: 1fr; }
-    #rooms .rooms__place, #rooms .rooms__place:last-child { aspect-ratio: 4 / 3.6; }
+    #rooms .rooms__place { aspect-ratio: 3 / 4; }
   }
 }
 </style>
@@ -430,7 +433,7 @@
     #rooms.is-track .rooms__track { display: flex; width: max-content; max-width: none; margin: 0; gap: clamp(1rem, 2.4vw, 2.25rem); padding-inline: var(--space-1); }
     #rooms.is-track .rooms__place { flex: none; width: clamp(16rem, 34vw, 30rem); height: min(66vh, 40rem); aspect-ratio: auto; }
     #rooms.is-track .rooms__place:last-child { grid-column: auto; }
-    #rooms.is-track .rooms__place img { left: -8%; width: 116%; }
+    #rooms.is-track .rooms__video { left: -8%; width: 116%; }
     @media (max-width: 47.99rem) {
       #rooms.is-track .rooms__place { width: 78vw; height: min(62vh, 34rem); }
     }
@@ -670,7 +673,7 @@
       <li><a class="m-link-2" href="#listen">Como Funciona</a></li>
       <li><a class="m-link-2" href="#calls">No Celular</a></li>
       <li><a class="m-link-2" href="#tune">Simulação</a></li>
-      <li><a class="m-link-2" href="#rooms">Especialidades</a></li>
+      <li><a class="m-link-2" href="#rooms">Clientes</a></li>
       <li><a class="m-link-2" href="#voices">Depoimentos</a></li>
       <li><a class="m-link-2" href="#faq">Perguntas</a></li>
       <li><a class="m-link-2" href="#contact">Contato</a></li>
@@ -684,7 +687,7 @@
       <li><a class="m-link-2" href="#listen">Como Funciona</a></li>
       <li><a class="m-link-2" href="#calls">No Celular</a></li>
       <li><a class="m-link-2" href="#tune">Simulação</a></li>
-      <li><a class="m-link-2" href="#rooms">Especialidades</a></li>
+      <li><a class="m-link-2" href="#rooms">Clientes</a></li>
       <li><a class="m-link-2" href="#voices">Depoimentos</a></li>
       <li><a class="m-link-2" href="#faq">Perguntas</a></li>
       <li><a class="m-link-2" href="#contact">Contato</a></li>
@@ -908,59 +911,55 @@
   </div>
 </section>
 
-<!-- in-person: horizontal track of five places with photos and caption pairs, two curved lines run through all of them (animation: scene:rooms) -->
+<!-- in-person: horizontal track of four client videos, name and city on top, result underneath (animation: scene:rooms) -->
 <section class="rooms on-dark" id="rooms" data-8b-section="in-person" aria-labelledby="rooms-title">
   <div class="rooms__sheet m-band-4" aria-hidden="true"></div>
   <div class="rooms__head l-wrap">
-    <h2 class="m-text-3" id="rooms-title" data-8b-motion="captionIn">Especialidades jurídicas da Sublime.</h2>
-    <p class="m-text-4 rooms__lead" data-8b-motion="readAlong">Atuamos com consultores jurídicos e respaldo legal nas principais modalidades de endividamento bancário no Brasil.</p>
+    <h2 class="m-text-3" id="rooms-title" data-8b-motion="captionIn">Clientes que quitaram a dívida do veículo.</h2>
+    <p class="m-text-4 rooms__lead" data-8b-motion="readAlong">Eles contam, com a própria voz, o valor que estava e o valor que ficou.</p>
   </div>
   <div class="rooms__hold">
     <div class="rooms__stage">
-      <p class="rooms__now m-text-6"><i aria-hidden="true"></i>4 Áreas de Atuação Jurídica</p>
+      <p class="rooms__now m-text-6"><i aria-hidden="true"></i>4 depoimentos em vídeo</p>
       <div class="rooms__track">
         <svg class="rooms__lines" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
           <path class="rooms__line rooms__line--a" pathLength="1" d="M0 60C40 10 80 10 120 50S200 95 240 55 320 5 360 45 440 95 480 55 560 5 600 45 680 95 720 55 800 5 840 45 920 95 1000 50"/>
           <path class="rooms__line rooms__line--b" pathLength="1" d="M0 40C40 90 80 90 120 50S200 5 240 45 320 95 360 55 440 5 480 45 560 95 600 55 680 5 720 45 800 95 840 55 920 5 1000 50"/>
         </svg>
         <figure class="rooms__place">
-          <img src="assets/images/hero-vehicle.jpg" width="1600" height="2400" alt="Veículo financiado" loading="lazy" decoding="async">
-          <figcaption class="rooms__label m-text-6">Veículos Financiados</figcaption>
+          <video class="rooms__video" poster="assets/videos/depoimento-01.jpg" preload="none" playsinline disablepictureinpicture><source src="assets/videos/depoimento-01.mp4" type="video/mp4"></video>
+          <figcaption class="rooms__label m-text-6"><span class="rooms__who">Miguel Andrade</span><span class="rooms__where">Belo Horizonte/MG</span></figcaption>
+          <button class="rooms__play" type="button" aria-label="Ouvir depoimento de Miguel Andrade"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l12-7z"/></svg></button>
           <div class="rooms__talk">
-            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Parcela do carro está pesando no bolso?</span></p>
-            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Reduzimos até 70% sem entregar o bem.</span></p>
+            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">De R$ 110 mil para R$ 20 mil.</span></p>
+            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Quitou o carro no Itaú.</span></p>
           </div>
         </figure>
         <figure class="rooms__place">
-          <img src="assets/images/atendimento-consultoria.jpg" width="1600" height="1803" alt="Defesa contra busca e apreensão" loading="lazy" decoding="async">
-          <figcaption class="rooms__label m-text-6">Defesa Anti-Busca</figcaption>
+          <video class="rooms__video" poster="assets/videos/depoimento-02.jpg" preload="none" playsinline disablepictureinpicture><source src="assets/videos/depoimento-02.mp4" type="video/mp4"></video>
+          <figcaption class="rooms__label m-text-6"><span class="rooms__who">Camila Ribeiro</span><span class="rooms__where">São Paulo/SP</span></figcaption>
+          <button class="rooms__play" type="button" aria-label="Ouvir depoimento de Camila Ribeiro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l12-7z"/></svg></button>
           <div class="rooms__talk">
-            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Recebeu notificação ou ameaça de apreensão?</span></p>
-            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Blindamos seu veículo imediatamente.</span></p>
+            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">De R$ 10 mil para R$ 4 mil.</span></p>
+            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Quitou a moto.</span></p>
           </div>
         </figure>
         <figure class="rooms__place">
-          <img src="https://images.unsplash.com/photo-1790469337210-02bde622b520?auto=format&fit=crop&w=800&q=80" width="1600" height="2400" alt="Empréstimo consignado" loading="lazy" decoding="async">
-          <figcaption class="rooms__label m-text-6">Consignado & RMC</figcaption>
+          <video class="rooms__video" poster="assets/videos/depoimento-03.jpg" preload="none" playsinline disablepictureinpicture><source src="assets/videos/depoimento-03.mp4" type="video/mp4"></video>
+          <figcaption class="rooms__label m-text-6"><span class="rooms__who">Wellington Costa</span><span class="rooms__where">São Paulo/SP</span></figcaption>
+          <button class="rooms__play" type="button" aria-label="Ouvir depoimento de Wellington Costa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l12-7z"/></svg></button>
           <div class="rooms__talk">
-            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Desconto infinito na folha de pagamento?</span></p>
-            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Expurgamos a taxa e recuperamos o valor.</span></p>
+            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">De R$ 80 mil para R$ 30 mil.</span></p>
+            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Quitou o carro.</span></p>
           </div>
         </figure>
         <figure class="rooms__place">
-          <img src="https://images.unsplash.com/photo-1627662166825-a860471632e4?auto=format&fit=crop&w=800&q=80" width="1600" height="2397" alt="Capital de giro empresarial" loading="lazy" decoding="async">
-          <figcaption class="rooms__label m-text-6">Capital de Giro PJ</figcaption>
+          <video class="rooms__video" poster="assets/videos/depoimento-04.jpg" preload="none" playsinline disablepictureinpicture><source src="assets/videos/depoimento-04.mp4" type="video/mp4"></video>
+          <figcaption class="rooms__label m-text-6"><span class="rooms__who">Rosana Martins</span><span class="rooms__where">Rio de Janeiro/RJ</span></figcaption>
+          <button class="rooms__play" type="button" aria-label="Ouvir depoimento de Rosana Martins"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l12-7z"/></svg></button>
           <div class="rooms__talk">
-            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Juros bancários travando o caixa da empresa?</span></p>
-            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Alongamos o prazo com desconto real.</span></p>
-          </div>
-        </figure>
-        <figure class="rooms__place">
-          <img src="https://images.unsplash.com/photo-1786772444593-63542e7d0618?auto=format&fit=crop&w=800&q=80" width="1600" height="2092" alt="Financiamento Imobiliário" loading="lazy" decoding="async">
-          <figcaption class="rooms__label m-text-6">Imóveis & Leilão</figcaption>
-          <div class="rooms__talk">
-            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Atraso e risco de leilão extrajudicial?</span></p>
-            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Suspensão de leilão e reequilíbrio na mesa.</span></p>
+            <p class="m-caption"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">De R$ 80 mil para R$ 22 mil.</span></p>
+            <p class="m-caption-2"><span class="m-caption__wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-caption__text">Quitou o financiamento.</span></p>
           </div>
         </figure>
       </div>
@@ -1113,7 +1112,7 @@
         <a class="m-link m-text-6" href="#hero">Voltar ao início</a>
       </div>
       <div class="footer__cols m-text-6">
-        <div class="footer__col"><h2 class="m-text-6">Navegação</h2><ul><li><a class="m-link-2" href="#listen">Como Funciona</a></li><li><a class="m-link-2" href="#calls">No Celular</a></li><li><a class="m-link-2" href="#rooms">Especialidades</a></li><li><a class="m-link-2" href="#tune">Simulação</a></li></ul></div>
+        <div class="footer__col"><h2 class="m-text-6">Navegação</h2><ul><li><a class="m-link-2" href="#listen">Como Funciona</a></li><li><a class="m-link-2" href="#calls">No Celular</a></li><li><a class="m-link-2" href="#rooms">Clientes</a></li><li><a class="m-link-2" href="#tune">Simulação</a></li></ul></div>
         <div class="footer__col"><h2 class="m-text-6">Atendimento</h2><ul><li><a class="m-link-2" href="https://wa.me/5511966944380" target="_blank" rel="noopener noreferrer">WhatsApp: (11) 96694-4380</a></li><li><a class="m-link-2" href="https://wa.me/5511966944380" target="_blank" rel="noopener noreferrer">Plantão: (11) 96694-4380</a></li><li><a class="m-link-2" href="mailto:contato@sublimenegociacoes.com.br">contato@sublimenegociacoes.com.br</a></li><li><a class="m-link-2" href="#faq">Dúvidas Frequentes</a></li></ul></div>
         <div class="footer__col"><h2 class="m-text-6">Institucional</h2><ul><li><a class="m-link-2" href="#voices">Depoimentos Reais</a></li><li><a class="m-link-2" href="#setup">Os 3 Passos</a></li><li><a class="m-link-2" href="#contact">Plantão do Consultor</a></li></ul></div>
       </div>
@@ -1643,7 +1642,7 @@ queueMotion(() => {
     main.fromTo(track, { x: 0 }, { x: () => -travel(), duration: 1 }, 0)
       .fromTo(lines, { strokeDasharray: 1, strokeDashoffset: () => 1 - lead() }, { strokeDashoffset: 0, duration: 1 }, 0);
     places.forEach((place, index) => {
-      const image = place.querySelector('img');
+      const image = place.querySelector('.rooms__video');
       const talk = place.querySelectorAll('.rooms__talk > *');
       gsap.fromTo(image, { xPercent: 7 }, { xPercent: 0, ease: 'none', scrollTrigger: { id: `rooms:photo-${index}`, trigger: place, containerAnimation: main, start: 'left right', end: wide ? 'left 66%' : 'left 40%', scrub: true } });
       gsap.fromTo(talk, { y: 36, opacity: 0 }, { y: 0, opacity: 1, ease: 'power2.out', stagger: 0.3, scrollTrigger: { id: `rooms:talk-${index}`, trigger: place, containerAnimation: main, start: wide ? 'left 100%' : 'left 100%', end: wide ? 'left 66%' : 'left 40%', scrub: true } });
@@ -1654,6 +1653,29 @@ queueMotion(() => {
     };
   });
 }, { id: 'rooms' });
+</script>
+<script data-8b-part="section-script:rooms">
+(() => {
+  const root = document.getElementById('rooms');
+  if (!root) return;
+  const places = [...root.querySelectorAll('.rooms__place')];
+  const stop = place => {
+    const video = place.querySelector('video');
+    video.pause();
+    place.classList.remove('is-playing');
+  };
+  places.forEach(place => {
+    const video = place.querySelector('video');
+    const button = place.querySelector('.rooms__play');
+    button.addEventListener('click', () => {
+      places.forEach(other => { if (other !== place) stop(other); });
+      video.play();
+      place.classList.add('is-playing');
+    });
+    video.addEventListener('click', () => { if (!video.paused) stop(place); });
+    video.addEventListener('ended', () => stop(place));
+  });
+})();
 </script>
 <script data-8b-part="scene:voices">
 queueMotion(() => {
