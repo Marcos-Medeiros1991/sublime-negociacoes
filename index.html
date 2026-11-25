@@ -568,8 +568,13 @@
   #contact .contact__ways li { display: grid; gap: 0.375rem; align-content: start; }
   #contact .contact__ways .m-text-6 { color: var(--color-5); }
   #contact .contact__form { display: grid; gap: 1.25rem; padding: clamp(1.5rem, 3.5vw, 2.75rem); border-radius: var(--radius-2); background: var(--color-2); }
-  #contact .contact__form .m-btn-2 { justify-self: start; }
+  #contact .contact__fields { display: grid; gap: 1.25rem; }
+  #contact .contact__fields[hidden] { display: none; }
+  #contact .contact__form .m-btn-2, #contact .contact__done .m-btn { justify-self: start; }
   #contact .contact__status:empty { display: none; }
+  #contact .contact__done { display: grid; gap: 1rem; }
+  #contact .contact__done[hidden] { display: none; }
+  #contact .contact__done .m-text { color: var(--color-5); max-width: 28rem; }
   @media (min-width: 48rem) { #setup .setup__card:nth-child(1) .setup__copy { grid-column: 2 / -1; max-width: 36rem; } }
   #tune .sim { width: min(100%, 42rem); min-height: 27rem; align-content: start; background: #fff; display: grid; gap: 1.5rem; padding: clamp(1.5rem, 3.5vw, 2.5rem); border-radius: var(--radius-2); background: var(--color-2); box-shadow: var(--shadow-1); border: 0.0625rem solid color-mix(in srgb, var(--color-4) 38%, transparent); }
   #tune .sim__kicker { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-5); }
@@ -1078,13 +1083,20 @@
         <li><p class="m-text-6">E-mail Oficial</p><a class="m-link m-text-5" href="mailto:contato@sublimenegociacoes.com.br">contato@sublimenegociacoes.com.br</a></li>
       </ul>
     </div>
-    <form class="contact__form" id="contact-form" novalidate data-msg-ok="Recebido com sucesso! Um consultor jurídico da Sublime entrará em contato em até 15 minutos." data-msg-error="Por favor, preencha seu nome, e-mail e uma breve mensagem.">
-      <h3 class="m-text-5">Fale com um consultor jurídico</h3>
-      <div class="m-field"><label class="m-field__label" for="contact-name">Seu Nome Completo</label><input class="m-field__input" id="contact-name" name="name" type="text" autocomplete="name" required placeholder="Ex: Juliana Santos"></div>
-      <div class="m-field"><label class="m-field__label" for="contact-email">WhatsApp ou E-mail</label><input class="m-field__input" id="contact-email" name="email" type="text" autocomplete="email" required placeholder="Ex: (11) 96084-5396"></div>
-      <div class="m-field"><label class="m-field__label" for="contact-message">Qual é o banco e valor da sua parcela?</label><textarea class="m-field__input" id="contact-message" name="message" rows="4" required placeholder="Ex: Financiamento Santander, parcela de R$ 1.850, restam 36 vezes."></textarea></div>
-      <button class="m-btn-2" type="submit"><span class="m-btn__label">Solicitar Laudo em 15 Min</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></button>
-      <p class="contact__status m-text-8" role="status" aria-live="polite"></p>
+    <form class="contact__form" id="contact-form" novalidate data-msg-error="Por favor, preencha seu nome, contato e uma breve mensagem.">
+      <div class="contact__fields">
+        <h3 class="m-text-5">Fale com um consultor jurídico</h3>
+        <div class="m-field"><label class="m-field__label" for="contact-name">Seu Nome Completo</label><input class="m-field__input" id="contact-name" name="name" type="text" autocomplete="name" required placeholder="Ex: Juliana Santos"></div>
+        <div class="m-field"><label class="m-field__label" for="contact-email">WhatsApp ou E-mail</label><input class="m-field__input" id="contact-email" name="email" type="text" autocomplete="email" required placeholder="Ex: (11) 96084-5396"></div>
+        <div class="m-field"><label class="m-field__label" for="contact-message">Qual é o banco e valor da sua parcela?</label><textarea class="m-field__input" id="contact-message" name="message" rows="4" required placeholder="Ex: Financiamento Santander, parcela de R$ 1.850, restam 36 vezes."></textarea></div>
+        <button class="m-btn-2" type="submit"><span class="m-btn__label">Solicitar Laudo em 15 Min</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></button>
+        <p class="contact__status m-text-8" role="status" aria-live="polite"></p>
+      </div>
+      <div class="contact__done" id="contact-done" hidden>
+        <h3 class="m-text-5">Sua mensagem já foi enviada.</h3>
+        <p class="m-text">Um consultor jurídico entra em contato em até 15 minutos.</p>
+        <a class="m-btn" id="contact-wa" href="https://wa.me/5511960845396" target="_blank" rel="noopener noreferrer"><span class="m-btn__label">Fale agora com o especialista</span><span class="m-btn__wave" aria-hidden="true"><i></i><i></i><i></i></span></a>
+      </div>
     </form>
   </div>
 </section>
@@ -1249,14 +1261,19 @@
     const fields = { subject: 'Contato pelo site — ' + name, name, message, contato: contact };
     if (contact.includes('@')) fields.email = contact;
     else fields.phone = contact;
+    const waText = 'Olá! Acabei de enviar uma mensagem pelo site da Sublime.\n\nMeu nome é ' + name + '.\nContato: ' + contact + '.\nBanco e parcela: ' + message + '\n\nQuero falar agora com o especialista.';
     window.sublimeNotify(fields).then(res => {
       if (res && res.success) {
-        status.textContent = form.dataset.msgOk;
-        form.reset();
+        document.getElementById('contact-wa').href = 'https://wa.me/5511960845396?text=' + encodeURIComponent(waText);
+        form.querySelector('.contact__fields').hidden = true;
+        document.getElementById('contact-done').hidden = false;
       } else {
         status.textContent = 'Não consegui enviar agora. Fale no WhatsApp (11) 96084-5396.';
+        label.textContent = previous;
+        button.disabled = false;
       }
-    }).finally(() => {
+    }).catch(() => {
+      status.textContent = 'Não consegui enviar agora. Fale no WhatsApp (11) 96084-5396.';
       label.textContent = previous;
       button.disabled = false;
     });
